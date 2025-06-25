@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import {
   BrowserRouter,
-  Routes,
   Route,
+  Routes,
 } from 'react-router-dom';
 import { routes } from './routes';
 
@@ -11,13 +11,16 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          {routes.map(({ path, Component }) => (
-            <Route
-              key={path}
-              path={path}
-              element={<Component />}
-            />
-          ))}
+          {routes.map(({ path, Component }) => {
+            // console.log('path', path);
+            return (
+              <Route
+                key={path}
+                path={path}
+                element={<Component />}
+              />
+            );
+          })}
         </Routes>
       </Suspense>
     </BrowserRouter>

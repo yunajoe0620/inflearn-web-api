@@ -12,7 +12,6 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           {routes.map(({ path, Component }) => {
-            // console.log('path', path);
             return (
               <Route
                 key={path}

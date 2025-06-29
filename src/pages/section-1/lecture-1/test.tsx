@@ -31,24 +31,24 @@ function Test() {
   const [data, setData] = useState<Users>([]);
 
   const url = 'https://jsonplaceholder.typicode.com/users';
-  const intervalCallback = () => {
-    setTime((prev) => prev + 1);
-  };
-  const fetchData = (async () => {
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    setData(jsonData);
-  })();
 
   useEffect(() => {
-    fetchData;
-    const id = setInterval(intervalCallback, 1000);
+    const id = setInterval(() => {
+      setTime((prev) => (prev = 1));
+    }, 1000);
     setTimeId(id);
     return () => {
       clearInterval(id);
     };
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      setData(jsonData);
+    })();
+  }, []);
   return (
     <div>
       <h1>Web API Example</h1>
@@ -58,7 +58,7 @@ function Test() {
       <h2>fetch</h2>
       <ul>
         {data.map((item) => (
-          <li>{item.name}</li>
+          <li key={item.id}>{item.name}</li>
         ))}
       </ul>
     </div>
